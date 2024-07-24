@@ -5,6 +5,8 @@ from tkinter import ttk
 import openpyxl
 import os
 import json
+import base_doc
+import pdfkit
 
 doc_settings = {
     "data_settings": {
@@ -22,13 +24,14 @@ doc_settings = {
         "ROZNICE_LICZNIKOW_ORAZ_CZESCI_WSPOLNE": "N",
         "KOSZT_STALY_PODGRZANIA": "P",
         "STAWKA_ZA_PODGRZANIE_WODY": "Q",
+        "MAIL": "U",
     }
 }
 
-
+def html_to_pdf(html_content, output_path, user):
+    pdfkit.from_string(html_content, output_path)
 def get_col(cell: str, row: any):
     return row[ord(cell) - ord('A')]
-
 
 def load_data(settings=None):
     if settings is None:
@@ -50,10 +53,20 @@ def load_data(settings=None):
         user = {}
         for key, val in settings['user_data_settings'].items():
             user[key] = get_col(val, row).value
+            if (key == 'LOKAL_URZYTKOWY'): continue
+            if user[key] is None: user[key] = 0
+
         users[user["LOKATOR"]] = user
 
-    print(json.dumps(users, indent=4))
+    #print(json.dumps(users, indent=4))
     return users
 
 
-load_data()
+users = load_data()
+for user in users.keys():
+    raw_html = base_doc.get_form_for_user(users[user])
+    try:
+        html_to_pdf(raw_html, os.path.join(os.path.join(os.getcwd(), 'pdfs'), str(user + ".pdf")), user)
+        print(f"Successfully converted html to pdf | {user} | {users[user]['MAIL']}")
+    except Exception as e:
+        print(f"Failed to convert html to pdf: {e} | {user} | {users[user]['MAIL']}")
