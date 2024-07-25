@@ -1,5 +1,5 @@
 
-def get_form_for_user(user):
+def get_form_for_user(user, data1, data2):
 
    base = f'''
    <html>
@@ -15,7 +15,7 @@ def get_form_for_user(user):
          <p class="c30"><span class="c44"><a class="c9" href="mailto:wspolnota.misjonarska@gmail.com">wspolnota.misjonarska@gmail.com</a></span></p>
          <p class="c8"><span class="c13 c15"></span></p>
          <p class="c8"><span class="c19 c6 c37"></span></p>
-         <p class="c1"><span class="c19 c6">Rozliczenie op&#322;at za wod&#281; za okres od {"data1"} do {"data2"} roku</span></p>
+         <p class="c1"><span class="c19 c6">Rozliczenie op&#322;at za wod&#281; za okres od {data1} do {data2} roku</span></p>
          <p class="c8"><span class="c6 c13"></span></p>
          <p class="c30"><span class="c0">Mieszkanie nr: {user["LOKAL_URZYTKOWY"]}</span></p>
          <p class="c8"><span class="c0"></span></p>
@@ -325,7 +325,7 @@ def get_form_for_user(user):
          <table class="c18">
             <tr class="c40">
                <td class="c28" colspan="3" rowspan="1">
-                  <p class="c1"><span class="c6 c12">Saldo na dzie&#324; {"jakis_dzien"}: [7]+[4] &nbsp; &nbsp; &nbsp; </span><span class="c26 c6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></p>
+                  <p class="c1"><span class="c6 c12">Saldo na dzie&#324; {data2}: [7]+[4] &nbsp; &nbsp; &nbsp; </span><span class="c26 c6">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></p>
                </td>
                <td class="c42" colspan="1" rowspan="1">
                   <p class="c30"><span class="c26 c6">&nbsp;</span></p>
