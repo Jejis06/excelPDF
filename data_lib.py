@@ -31,10 +31,10 @@ class Capturing(list):
 def send_pdfs(files, mail, auth, subject, message):
     for file in files:
         try:
-            mail_module.send_email_pdf_figs(file["pdf_path"], subject, message, file['mail'], mail, auth)
-            print(f"Succesfully sent email to {file['mail']}/{file['user']}")
+            mail_module.send_email_pdf_figs(file["pdf_path"], subject, message, file['mail'], mail, auth, f"ROZL_{file['user']}.pdf")
+            print(f"| Succesfully sent email to {file['mail']} / {file['user']} |")
         except Exception as e:
-            print(f"Could not send email to {file['mail']}/{file['user']} {e}")
+            print(f"| Could not send email to {file['mail']} / {file['user']} {e} |")
 
 
 class Data:
