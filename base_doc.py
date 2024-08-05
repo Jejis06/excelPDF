@@ -68,7 +68,7 @@ def get_form_for_user(user, data1, data2):
                   <p class="c1"><span class="c4">[1]</span></p>
                </td>
                <td class="c10" colspan="1" rowspan="1">
-                  <p class="c1"><span class="c4">{round(user["ZUZYCIE_WODY_ZIMNEJ"], 2)}</span></p>
+                  <p class="c1"><span class="c4">{round(user["ZUZYCIE_WODY_ZIMNEJ"], 3)}</span></p>
                </td>
                <td class="c25" colspan="1" rowspan="1">
                   <p class="c1"><span class="c4">{round(user["STAWKA_ZA_WODE_ZIMNA_I_SCIEKI"], 2)} z&#322;</span></p>
@@ -85,7 +85,7 @@ def get_form_for_user(user, data1, data2):
                   <p class="c1"><span class="c4">[2]</span></p>
                </td>
                <td class="c10" colspan="1" rowspan="1">
-                  <p class="c1"><span class="c4">{round(user["ZUZYCIE_WODY_CIEPLEJ"], 2)}</span></p>
+                  <p class="c1"><span class="c4">{round(user["ZUZYCIE_WODY_CIEPLEJ"], 3)}</span></p>
                </td>
                <td class="c25" colspan="1" rowspan="1">
                   <p class="c1"><span class="c4">{round(user["STAWKA_ZA_WODE_ZIMNA_I_SCIEKI"], 2)} z&#322;</span></p>
