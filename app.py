@@ -1,38 +1,107 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 import data_lib
 import os
 import sys
 
+
+# noinspection PyStatementEffect
 class Ui_Form(object):
+
     def __init__(self):
         self.files = None
 
     def load_settings(self):
         saved_data = data_lib.get_data(os.path.join(os.getcwd(), 'data.json'))
+        if saved_data is None: return
 
         # file settings
-        self.RangeStart.setText(str(saved_data['data_settings']['rangeStart']))
-        self.RangeEnd.setText(str(saved_data['data_settings']['rangeEnd']))
-        self.Plik.setText(str(saved_data['data_settings']['filename']))
+        try:
+            self.RangeStart.setText(str(saved_data['data_settings']['rangeStart']))
+        except:
+            None
+        try:
+            self.RangeEnd.setText(str(saved_data['data_settings']['rangeEnd']))
+        except:
+            None
+        try:
+            self.Plik.setText(str(saved_data['data_settings']['filename']))
+        except:
+            None
 
         # data settings
-        self.Lokator.setText(str(saved_data['user_data_settings']['LOKATOR']))
-        self.LokalUrzytkowy.setText(str(saved_data['user_data_settings']['LOKAL_URZYTKOWY']))
-        self.ZuzycieWodyZimnej.setText(str(saved_data['user_data_settings']['ZUZYCIE_WODY_ZIMNEJ']))
-        self.ZuzycieWodyCieplej.setText(str(saved_data['user_data_settings']['ZUZYCIE_WODY_CIEPLEJ']))
-        self.StawkaWodaZimna.setText(str(saved_data['user_data_settings']['STAWKA_ZA_WODE_ZIMNA_I_SCIEKI']))
-        self.RozniceLicznikow.setText(str(saved_data['user_data_settings']['ROZNICE_LICZNIKOW_ORAZ_CZESCI_WSPOLNE']))
-        self.kosztStalyPodgrzanie.setText(str(saved_data['user_data_settings']['KOSZT_STALY_PODGRZANIA']))
-        self.StawkaPodgrzanie.setText(str(saved_data['user_data_settings']['STAWKA_ZA_PODGRZANIE_WODY']))
-        self.Mail.setText(str(saved_data['user_data_settings']['MAIL']))
+        try:
+            self.Lokator.setText(str(saved_data['user_data_settings']['LOKATOR']))
+        except:
+            None
+        try:
+            self.LokalUrzytkowy.setText(str(saved_data['user_data_settings']['LOKAL_URZYTKOWY']))
+        except:
+            None
+        try:
+            self.ZuzycieWodyZimnej.setText(str(saved_data['user_data_settings']['ZUZYCIE_WODY_ZIMNEJ']))
+        except:
+            None
+        try:
+            self.ZuzycieWodyCieplej.setText(str(saved_data['user_data_settings']['ZUZYCIE_WODY_CIEPLEJ']))
+        except:
+            None
+        try:
+            self.StawkaWodaZimna.setText(str(saved_data['user_data_settings']['STAWKA_ZA_WODE_ZIMNA_I_SCIEKI']))
+        except:
+            None
+        try:
+            self.RozniceLicznikow.setText(
+                str(saved_data['user_data_settings']['ROZNICE_LICZNIKOW_ORAZ_CZESCI_WSPOLNE']))
+        except:
+            None
+        try:
+            self.kosztStalyPodgrzanie.setText(str(saved_data['user_data_settings']['KOSZT_STALY_PODGRZANIA']))
+        except:
+            None
+        try:
+            self.StawkaPodgrzanie.setText(str(saved_data['user_data_settings']['STAWKA_ZA_PODGRZANIE_WODY']))
+        except:
+            None
+        try:
+            self.Mail.setText(str(saved_data['user_data_settings']['MAIL']))
+        except:
+            None
+        try:
+            self.Nabywca.setText(str(saved_data['user_data_settings']['NABYWCA']))
+        except:
+            None
+        try:
+            self.AdresKorespondencyjny.setText(str(saved_data['user_data_settings']['ADRES_KORESPONDENCYJNY']))
+        except:
+            None
 
         # mail settings
-        self.RootMail.setText(str(saved_data['mail_settings']['ROOT_MAIL']))
-        self.Tytul.setText(str(saved_data['mail_settings']['SUBJECT']))
-        self.Tresc.setPlainText(str(saved_data['mail_settings']['CONTENT']))
-        self.Auth.setText(str(saved_data['mail_settings']['AUTH']))
+        try:
+            self.RootMail.setText(str(saved_data['mail_settings']['ROOT_MAIL']))
+        except:
+            None
+        try:
+            self.Tytul.setText(str(saved_data['mail_settings']['SUBJECT']))
+        except:
+            None
+        try:
+            self.Tresc.setPlainText(str(saved_data['mail_settings']['CONTENT']))
+        except:
+            None
+        try:
+            self.Auth.setText(str(saved_data['mail_settings']['AUTH']))
+        except:
+            None
+        try:
+            self.RachunekBankowy.setText(str(saved_data['mail_settings']['RACHUNEK_BANKOWY']))
+        except:
+            None
+        try:
+            self.Sprzedawca.setPlainText(str(saved_data['mail_settings']['SPRZEDAWCA']))
+        except:
+            None
 
         return
 
@@ -55,13 +124,18 @@ class Ui_Form(object):
                 "KOSZT_STALY_PODGRZANIA": self.kosztStalyPodgrzanie.text(),
                 "STAWKA_ZA_PODGRZANIE_WODY": self.StawkaPodgrzanie.text(),
                 "MAIL": self.Mail.text(),
+                "ADRES_KORESPONDENCYJNY": self.AdresKorespondencyjny.text(),
+                "NABYWCA": self.Nabywca.text(),
+
             },
 
             "mail_settings": {
                 "ROOT_MAIL": self.RootMail.text(),
                 "AUTH": self.Auth.text(),
                 "SUBJECT": self.Tytul.text(),
-                "CONTENT": self.Tresc.toPlainText()
+                "CONTENT": self.Tresc.toPlainText(),
+                "SPRZEDAWCA": self.Sprzedawca.toPlainText(),
+                "RACHUNEK_BANKOWY": self.RachunekBankowy.text()
             }
         }
         return doc_settings
@@ -73,12 +147,14 @@ class Ui_Form(object):
             return
         self.OUT.appendPlainText("[SENDING PDFS.....]")
         with data_lib.Capturing() as output:
-            data_lib.send_pdfs(self.files,self.RootMail.text(), self.Auth.text(), self.Tytul.text(), self.Tresc.toPlainText() )
+            data_lib.send_pdfs(self.files, self.RootMail.text(), self.Auth.text(), self.Tytul.text(),
+                               self.Tresc.toPlainText())
 
         for out in output:
             self.OUT.appendPlainText(out)
 
         return
+
     def generatePdfAction(self):
 
         self.OUT.setPlainText("[GENERATING PDFS.....]")
@@ -86,12 +162,12 @@ class Ui_Form(object):
         dane = data_lib.Data(settings)
 
         with data_lib.Capturing() as output:
-            self.files = dane.generate_pdfs(self.PoczatekOkr.date().toPyDate().strftime("%d.%m.%Y"), self.KoniecOkr.date().toPyDate().strftime("%d.%m.%Y"))
+            self.files = dane.generate_pdfs(self.PoczatekOkr.date().toPyDate().strftime("%d.%m.%Y"),
+                                            self.KoniecOkr.date().toPyDate().strftime("%d.%m.%Y"))
         for out in output:
             self.OUT.appendPlainText(out)
 
         return
-
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
@@ -161,6 +237,7 @@ class Ui_Form(object):
         self.ZuzycieWodyCieplej.setObjectName("ZuzycieWodyCieplej")
         self.horizontalLayout_12.addWidget(self.ZuzycieWodyCieplej)
         self.gridLayout_3.addLayout(self.horizontalLayout_12, 3, 0, 1, 1)
+
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
         self.label_10 = QtWidgets.QLabel(self.gridLayoutWidget)
@@ -174,6 +251,38 @@ class Ui_Form(object):
         self.Lokator.setObjectName("Lokator")
         self.horizontalLayout_9.addWidget(self.Lokator)
         self.gridLayout_3.addLayout(self.horizontalLayout_9, 0, 0, 1, 1)
+
+        # TODO: NABYWCA --- ADD SAVING DATA
+        self.horizontalLayout_20 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_20.setObjectName("horizontalLayout_20")
+        self.label_22 = QtWidgets.QLabel(self.gridLayoutWidget)
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.label_22.setFont(font)
+        self.label_22.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_22.setObjectName("label_22")
+        self.horizontalLayout_20.addWidget(self.label_22)
+        self.Nabywca = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.Nabywca.setObjectName("Nabywca")
+        self.horizontalLayout_20.addWidget(self.Nabywca)
+        self.gridLayout_3.addLayout(self.horizontalLayout_20, 9, 0, 1, 1)
+
+        # TODO: ADRES KORESPONDENCYJNY --- ADD SAVING DATA
+
+        self.horizontalLayout_21 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_21.setObjectName("horizontalLayout_21")
+        self.label_23 = QtWidgets.QLabel(self.gridLayoutWidget)
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.label_23.setFont(font)
+        self.label_23.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_23.setObjectName("label_23")
+        self.horizontalLayout_21.addWidget(self.label_23)
+        self.AdresKorespondencyjny = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.AdresKorespondencyjny.setObjectName("AdresKorespondencyjny")
+        self.horizontalLayout_21.addWidget(self.AdresKorespondencyjny)
+        self.gridLayout_3.addLayout(self.horizontalLayout_21, 10, 0, 1, 1)
+
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.label_3 = QtWidgets.QLabel(self.gridLayoutWidget)
@@ -266,6 +375,7 @@ class Ui_Form(object):
         self.RangeEnd.setObjectName("RangeEnd")
         self.horizontalLayout_5.addWidget(self.RangeEnd)
         self.gridLayout.addLayout(self.horizontalLayout_5, 1, 2, 1, 1)
+
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.label_8 = QtWidgets.QLabel(self.gridLayoutWidget)
@@ -278,7 +388,38 @@ class Ui_Form(object):
         self.Tresc = QtWidgets.QPlainTextEdit(self.gridLayoutWidget)
         self.Tresc.setObjectName("Tresc")
         self.verticalLayout.addWidget(self.Tresc)
+
+        # TODO: Sprzedawca ----- ADD SAVING DATA
+
+        self.label_20 = QtWidgets.QLabel(self.gridLayoutWidget)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.label_20.setFont(font)
+        self.label_20.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_20.setObjectName("label_20")
+        self.verticalLayout.addWidget(self.label_20)
+
+        self.Sprzedawca = QtWidgets.QPlainTextEdit(self.gridLayoutWidget)
+        self.Sprzedawca.setObjectName("Sprzedawca")
+        self.verticalLayout.addWidget(self.Sprzedawca)
+
+        # TODO: Rachunek bankowy ------- ADD SAVING DATA
+        self.label_21 = QtWidgets.QLabel(self.gridLayoutWidget)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.label_21.setFont(font)
+        self.label_21.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_21.setObjectName("label_21")
+        self.verticalLayout.addWidget(self.label_21)
+
+        self.RachunekBankowy = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.RachunekBankowy.setObjectName("RachunekBankowy")
+        self.verticalLayout.addWidget(self.RachunekBankowy)
+
         self.gridLayout.addLayout(self.verticalLayout, 4, 0, 1, 1)
+
+        # TODO: LOKAL USlugowy
+
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.label_9 = QtWidgets.QLabel(self.gridLayoutWidget)
@@ -380,7 +521,7 @@ class Ui_Form(object):
         self.label_13.setText(_translate("Form", "ZUZYCIE WODY CIEPLEJ"))
         self.label_10.setText(_translate("Form", "LOKATOR"))
         self.label_3.setText(_translate("Form", "LOKAL URZYTKOWY"))
-        self.label_15.setText(_translate("Form", "ROZNICE_LICZNIKOW ORAZ CZESCI WSPOLNE"))
+        self.label_15.setText(_translate("Form", "ROZNICE LICZNIKOW ORAZ CZESCI WSPOLNE"))
         self.label_17.setText(_translate("Form", "STAWKA ZA PODGRZANIE WODY"))
         self.label_16.setText(_translate("Form", "KOSZT STALY PODGRZANIA"))
         self.label_18.setText(_translate("Form", "MAIL"))
@@ -388,6 +529,10 @@ class Ui_Form(object):
         self.label_5.setText(_translate("Form", "range end"))
         self.label_8.setText(_translate("Form", "Mail content"))
         self.label_9.setText(_translate("Form", "Subject"))
+        self.label_20.setText(_translate("Form", "Sprzedawca"))
+        self.label_21.setText(_translate("Form", "Rachunek Bankowy"))
+        self.label_22.setText(_translate("Form", "NABYWCA"))
+        self.label_23.setText(_translate("Form", "ADRES KORESPONDENCYJNY"))
         self.label_4.setText(_translate("Form", "Email"))
         self.label.setText(_translate("Form", "Mailbox settings"))
         self.label_2.setText(_translate("Form", "Data settings"))
@@ -396,7 +541,6 @@ class Ui_Form(object):
         self.SendPdf.setText(_translate("Form", "Send PDFs"))
         self.NazwaPoczatek.setText(_translate("Form", "Poczatek okresu rozl."))
         self.NazwaKoniec.setText(_translate("Form", "Koniec okresu rozl."))
-
 
 
 if __name__ == "__main__":
