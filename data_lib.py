@@ -78,9 +78,9 @@ class Data:
 
         path = os.path.join(os.getcwd(), filename)
 
-        workbook = openpyxl.load_workbook(path)
+        workbook = openpyxl.load_workbook(path, data_only=True)
         sheetNames = workbook.sheetnames
-        sheet = workbook[sheetNames[0]]
+        sheet = workbook[sheetNames[1]]
 
         rows = sheet[rangeStart + ":" + rangeEnd]
         for row in rows:
@@ -110,7 +110,6 @@ class Data:
 
         for user in users.keys():
             current_date = datetime.datetime.now().strftime("%d.%m.%Y") + 'r.'
-
             # type od template to chose to generate
             if "SPRZEDAWCA" in users[user].keys() and "RACHUNEK_BANKOWY" in users[user].keys():
                 raw_html = base_doc.get_form_user_formal(users[user], okres1, okres2, current_date)

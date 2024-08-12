@@ -252,7 +252,7 @@ class Ui_Form(object):
         self.horizontalLayout_9.addWidget(self.Lokator)
         self.gridLayout_3.addLayout(self.horizontalLayout_9, 0, 0, 1, 1)
 
-        # TODO: NABYWCA --- ADD SAVING DATA
+        # NABYWCA --- ADD SAVING DATA
         self.horizontalLayout_20 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_20.setObjectName("horizontalLayout_20")
         self.label_22 = QtWidgets.QLabel(self.gridLayoutWidget)
@@ -267,8 +267,7 @@ class Ui_Form(object):
         self.horizontalLayout_20.addWidget(self.Nabywca)
         self.gridLayout_3.addLayout(self.horizontalLayout_20, 9, 0, 1, 1)
 
-        # TODO: ADRES KORESPONDENCYJNY --- ADD SAVING DATA
-
+        # ADRES KORESPONDENCYJNY --- ADD SAVING DATA
         self.horizontalLayout_21 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_21.setObjectName("horizontalLayout_21")
         self.label_23 = QtWidgets.QLabel(self.gridLayoutWidget)
@@ -389,7 +388,7 @@ class Ui_Form(object):
         self.Tresc.setObjectName("Tresc")
         self.verticalLayout.addWidget(self.Tresc)
 
-        # TODO: Sprzedawca ----- ADD SAVING DATA
+        # Sprzedawca ----- ADD SAVING DATA
 
         self.label_20 = QtWidgets.QLabel(self.gridLayoutWidget)
         font = QtGui.QFont()
@@ -403,7 +402,7 @@ class Ui_Form(object):
         self.Sprzedawca.setObjectName("Sprzedawca")
         self.verticalLayout.addWidget(self.Sprzedawca)
 
-        # TODO: Rachunek bankowy ------- ADD SAVING DATA
+        # Rachunek bankowy ------- ADD SAVING DATA
         self.label_21 = QtWidgets.QLabel(self.gridLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -418,7 +417,7 @@ class Ui_Form(object):
 
         self.gridLayout.addLayout(self.verticalLayout, 4, 0, 1, 1)
 
-        # TODO: LOKAL USlugowy
+        # LOKAL USlugowy
 
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
