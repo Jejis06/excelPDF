@@ -16,8 +16,8 @@ def get_data(filename):
             data = json.load(f)
             f.close()
         return data
-    except Exception as e:
-        with open(filename, 'r') as f:
+    except:
+        with open(filename, 'w') as f:
             pass
         return None
 

@@ -1,3 +1,5 @@
 pdfs/*
 .idea
 venv
+*.xlsx
+*.json
