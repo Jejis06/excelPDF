@@ -404,7 +404,7 @@ def get_form_user_formal(user, data1, data2, aktualna_data):
    </head>
    ''' + f'''
    <body class="c47 doc-content">
-      <p class="c32"><span class="c27">P&#322;ock, dnia 12.07.2024r.</span></p>
+      <p class="c32"><span class="c27">P&#322;ock, dnia {aktualna_data}</span></p>
       <p class="c20"><span class="c14 c41">ZAWIADOMIENIE O WYSOKOS&#769;CI OP&#321;AT</span></p>
       <p class="c4"><span class="c1">ORYGINA&#321;</span></p>
       <p class="c4 c6"><span class="c1"></span></p>
@@ -726,6 +726,197 @@ def get_form_user_formal(user, data1, data2, aktualna_data):
       <p class="c4"><span class="c31 c14">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
       <p class="c4"><span class="c14 c31">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
       <p class="c4 c6"><span class="c31 c14"></span></p>
+   </body>
+</html>
+   '''
+    return base
+def get_form_user_electricy(user, data1, data2, aktualna_data):
+    rachunek_bankowy = str(user["RACHUNEK_BANKOWY"])
+    print(user)
+
+    numer_mieszkania = user['LOKAL_URZYTKOWY']
+    zuzycie_kwh= round(user["ZUZYCIE_KWH"], 2)
+    stawka_kwh = round(user["STAWKA_KWH"], 2)
+
+    koszt_staly = round(5.001, 2)
+    koszt_czesciowy = round(zuzycie_kwh * stawka_kwh, 2)
+    koszt_calkowity = round(koszt_staly + koszt_czesciowy, 2)
+
+
+    base = '''
+   <html>
+   <head>
+      <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+      <style type="text/css">ol{margin:0;padding:0}table td,table th{padding:0}.c4{border-right-style:solid;padding:1pt 1pt 5pt 1pt;border-bottom-color:#000000;border-top-width:1pt;border-right-width:1pt;border-left-color:#000000;vertical-align:middle;border-right-color:#000000;border-left-width:1pt;border-top-style:solid;background-color:#ffffff;border-left-style:solid;border-bottom-width:1pt;width:57pt;border-top-color:#000000;border-bottom-style:solid}.c6{border-right-style:solid;padding:1pt 1pt 5pt 1pt;border-bottom-color:#000000;border-top-width:1pt;border-right-width:1pt;border-left-color:#000000;vertical-align:middle;border-right-color:#000000;border-left-width:1pt;border-top-style:solid;background-color:#ffffff;border-left-style:solid;border-bottom-width:1pt;width:129.8pt;border-top-color:#000000;border-bottom-style:solid}.c40{border-right-style:solid;border-bottom-color:#000000;border-top-width:1pt;border-right-width:1pt;border-left-color:#000000;vertical-align:middle;border-right-color:#000000;border-left-width:0pt;border-top-style:solid;background-color:#a6a6a6;border-left-style:solid;border-bottom-width:1pt;width:39.5pt;border-top-color:#000000;border-bottom-style:solid}.c26{border-right-style:solid;padding:5pt 5pt 5pt 5pt;border-bottom-color:#000000;border-top-width:0pt;border-right-width:0pt;border-left-color:#000000;vertical-align:top;border-right-color:#000000;border-left-width:0pt;border-top-style:solid;border-left-style:solid;border-bottom-width:0pt;width:225.7pt;border-top-color:#000000;border-bottom-style:solid}.c44{border-right-style:solid;border-bottom-color:#000000;border-top-width:1pt;border-right-width:1pt;border-left-color:#000000;vertical-align:middle;border-right-color:#000000;border-left-width:1pt;border-top-style:solid;background-color:#a6a6a6;border-left-style:solid;border-bottom-width:1pt;width:293.2pt;border-top-color:#000000;border-bottom-style:solid}.c42{border-right-style:solid;border-bottom-color:#000000;border-top-width:1pt;border-right-width:0pt;border-left-color:#000000;vertical-align:middle;border-right-color:#000000;border-left-width:0pt;border-top-style:solid;background-color:#a6a6a6;border-left-style:solid;border-bottom-width:1pt;width:21pt;border-top-color:#000000;border-bottom-style:solid}.c41{border-right-style:solid;padding:5pt 5pt 5pt 5pt;border-bottom-color:#000000;border-top-width:1pt;border-right-width:0pt;border-left-color:#000000;vertical-align:top;border-right-color:#000000;border-left-width:1pt;border-top-style:solid;border-left-style:solid;border-bottom-width:1pt;width:5.2pt;border-top-color:#000000;border-bottom-style:solid}.c22{border-right-style:solid;padding:5pt 5pt 5pt 5pt;border-bottom-color:#000000;border-top-width:1pt;border-right-width:1pt;border-left-color:#000000;vertical-align:top;border-right-color:#000000;border-left-width:1pt;border-top-style:solid;border-left-style:solid;border-bottom-width:1pt;width:186pt;border-top-color:#000000;border-bottom-style:solid}.c10{border-right-style:solid;border-bottom-color:#000000;border-top-width:1pt;border-right-width:1pt;border-left-color:#000000;vertical-align:middle;border-right-color:#000000;border-left-width:1pt;border-top-style:solid;background-color:#ffffff;border-left-style:solid;border-bottom-width:1pt;width:30.8pt;border-top-color:#000000;border-bottom-style:solid}.c27{border-right-style:solid;padding:5pt 5pt 5pt 5pt;border-bottom-color:#000000;border-top-width:1pt;border-right-width:1pt;border-left-color:#000000;vertical-align:top;border-right-color:#000000;border-left-width:1pt;border-top-style:solid;border-left-style:solid;border-bottom-width:1pt;width:5.2pt;border-top-color:#000000;border-bottom-style:solid}.c43{border-right-style:solid;border-bottom-color:#000000;border-top-width:1pt;border-right-width:0pt;border-left-color:#000000;vertical-align:middle;border-right-color:#000000;border-left-width:0pt;border-top-style:solid;background-color:#a6a6a6;border-left-style:solid;border-bottom-width:1pt;width:97pt;border-top-color:#000000;border-bottom-style:solid}.c28{border-right-style:solid;border-bottom-color:#000000;border-top-width:1pt;border-right-width:1pt;border-left-color:#000000;vertical-align:middle;border-right-color:#000000;border-left-width:1pt;border-top-style:solid;border-left-style:solid;border-bottom-width:1pt;width:57pt;border-top-color:#000000;border-bottom-style:solid}.c24{border-right-style:solid;border-bottom-color:#000000;border-top-width:1pt;border-right-width:1pt;border-left-color:#000000;vertical-align:bottom;border-right-color:#000000;border-left-width:1pt;border-top-style:solid;border-left-style:solid;border-bottom-width:1pt;width:129.8pt;border-top-color:#000000;border-bottom-style:solid}.c30{border-right-style:solid;border-bottom-color:#000000;border-top-width:1pt;border-right-width:1pt;border-left-color:#000000;vertical-align:middle;border-right-color:#000000;border-left-width:1pt;border-top-style:solid;border-left-style:solid;border-bottom-width:1pt;width:162pt;border-top-color:#000000;border-bottom-style:solid}.c3{border-right-style:solid;border-bottom-color:#000000;border-top-width:1pt;border-right-width:1pt;border-left-color:#000000;vertical-align:middle;border-right-color:#000000;border-left-width:1pt;border-top-style:solid;border-left-style:solid;border-bottom-width:1pt;width:71.2pt;border-top-color:#000000;border-bottom-style:solid}.c16{border-right-style:solid;border-bottom-color:#000000;border-top-width:1pt;border-right-width:1pt;border-left-color:#000000;vertical-align:bottom;border-right-color:#000000;border-left-width:1pt;border-top-style:solid;border-left-style:solid;border-bottom-width:1pt;width:162pt;border-top-color:#000000;border-bottom-style:solid}.c15{color:#000000;font-weight:700;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal}.c8{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:9pt;font-family:"Arial";font-style:normal}.c7{color:#000000;font-weight:700;text-decoration:none;vertical-align:baseline;font-size:10pt;font-family:"Arial";font-style:normal}.c5{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:10pt;font-family:"Arial";font-style:normal}.c45{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:right}.c1{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:center}.c0{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:left}.c29{padding-top:12pt;padding-bottom:12pt;line-height:1.15;orphans:2;widows:2;text-align:center}.c32{color:#000000;text-decoration:none;vertical-align:baseline;font-family:"Arial";font-style:normal}.c48{margin-left:auto;border-spacing:0;border-collapse:collapse;margin-right:auto}.c19{border-spacing:0;border-collapse:collapse;margin-right:auto}.c18{padding-top:0pt;padding-bottom:0pt;line-height:1.0;text-align:left}.c39{font-weight:400;font-size:7pt}.c2{font-size:15pt;font-weight:700}.c17{font-size:12pt;font-weight:700}.c47{max-width:451.4pt;padding:72pt 72pt 72pt 72pt}.c46{font-weight:400;font-size:14pt}.c21{font-size:9pt;font-weight:700}.c23{font-size:14pt;font-weight:700}.c38{font-weight:400;font-size:11pt}.c25{font-weight:700}.c13{height:15pt}.c34{font-size:9pt}.c33{padding:1pt 1pt 5pt 1pt}.c14{height:15.8pt}.c37{height:13.5pt}.c11{background-color:#ffffff}.c12{height:11pt}.c35{height:22pt}.c36{height:32.2pt}.c9{height:0pt}.c31{font-size:10pt}.c20{font-size:8pt}.title{padding-top:0pt;color:#000000;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}.subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}li{color:#000000;font-size:11pt;font-family:"Arial"}p{margin:0;color:#000000;font-size:11pt;font-family:"Arial"}h1{padding-top:20pt;color:#000000;font-size:20pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h2{padding-top:18pt;color:#000000;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h3{padding-top:16pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h4{padding-top:14pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h5{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h6{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}</style>
+   </head>
+   ''' + f'''
+   <body class="c11 c47 doc-content">
+      <p class="c45"><span class="c31">P&#322;ock, dnia {aktualna_data}</span></p>
+      <p class="c0"><span class="c23">ZAWIADOMIENIE O WYSOKOS&#769;CI OP&#321;AT</span></p>
+      <p class="c1"><span class="c7">ORYGINA&#321;</span></p>
+      <p class="c1 c12"><span class="c7"></span></p>
+      <table class="c48">
+         <tr class="c9">
+            <td class="c26" colspan="1" rowspan="1">
+               <p class="c0"><span class="c32 c21">SPRZEDAWCA</span></p>
+               <table class="c19">
+                  <tr class="c9">
+                     <td class="c22" colspan="1" rowspan="1">
+                        <p class="c18"><span class="c32 c21">WSPO&#769;LNOTA MIESZKANIOWA</span></p>
+                        <p class="c18"><span class="c32 c21">MISJONARSKA 1B</span></p>
+                        <p class="c18"><span class="c8">ul. Misjonarska 1b</span></p>
+                        <p class="c18"><span class="c34">09-402 P&#322;ock</span><span class="c32 c39">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+                        <p class="c18"><span class="c34">NIP: </span><span class="c20">774-321-13-47 </span></p>
+                     </td>
+                  </tr>
+               </table>
+               <p class="c0 c12"><span class="c32 c21"></span></p>
+            </td>
+            <td class="c26" colspan="1" rowspan="1">
+               <p class="c0 c12"><span class="c32 c21"></span></p>
+            </td>
+         </tr>
+      </table>
+      <p class="c0"><span class="c32 c21">RACHUNEK BANKOWY:</span></p>
+      <p class="c0"><span class="c21">{rachunek_bankowy}</span><span class="c7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+      <p class="c12 c29"><span class="c8"></span></p>
+      <hr>
+      <p class="c0 c12"><span class="c8"></span></p>
+      <p class="c1"><span class="c25 c31">Rozliczenie op&#322;at za energi&#281; elektryczn&#261; za okres od {data1} do {data2} roku</span></p>
+      <p class="c0 c12"><span class="c32 c25 c20"></span></p>
+      <p class="c0"><span class="c21">Mieszkanie nr: {numer_mieszkania}</span></p>
+      <p class="c1"><span class="c7">Op&#322;aty</span></p>
+      <p class="c1 c12"><span class="c7"></span></p>
+      <table class="c19">
+         <tr class="c36">
+            <td class="c6" colspan="1" rowspan="1">
+               <p class="c1"><span class="c25">Energia elektryczna</span></p>
+            </td>
+            <td class="c10" colspan="1" rowspan="1">
+               <p class="c1"><span class="c7">&nbsp;</span></p>
+            </td>
+            <td class="c28 c11" colspan="1" rowspan="1">
+               <p class="c1"><span class="c7">kWh</span></p>
+            </td>
+            <td class="c3 c11" colspan="1" rowspan="1">
+               <p class="c1"><span class="c7">Stawka [z&#322;/kWh]</span></p>
+            </td>
+            <td class="c16 c11" colspan="1" rowspan="1">
+               <p class="c1"><span class="c7">Kwota obci&#261;&#380;enia mieszkania za ca&#322;y okres</span></p>
+            </td>
+         </tr>
+         <tr class="c37">
+            <td class="c24 c11" colspan="1" rowspan="1">
+               <p class="c1"><span class="c7">&nbsp;</span></p>
+            </td>
+            <td class="c10" colspan="1" rowspan="1">
+               <p class="c1"><span class="c7">&nbsp;</span></p>
+            </td>
+            <td class="c28 c11" colspan="1" rowspan="1">
+               <p class="c1"><span class="c20">[a]</span></p>
+            </td>
+            <td class="c3 c11" colspan="1" rowspan="1">
+               <p class="c1"><span class="c20">[b]</span></p>
+            </td>
+            <td class="c30 c11" colspan="1" rowspan="1">
+               <p class="c1"><span class="c20">[a]x[b]</span></p>
+            </td>
+         </tr>
+         <tr class="c13">
+            <td class="c24 c33 c11" colspan="1" rowspan="1">
+               <p class="c1"><span class="c5">Koszt energii elektrycznej</span></p>
+            </td>
+            <td class="c10" colspan="1" rowspan="1">
+               <p class="c1"><span class="c5">[1]</span></p>
+            </td>
+            <td class="c4" colspan="1" rowspan="1">
+               <p class="c1"><span class="c5">{zuzycie_kwh}</span></p>
+            </td>
+            <td class="c3 c33" colspan="1" rowspan="1">
+               <p class="c1"><span class="c5">{stawka_kwh} z&#322;</span></p>
+            </td>
+            <td class="c16 c11 c33" colspan="1" rowspan="1">
+               <p class="c1"><span class="c31">{koszt_czesciowy} z&#322;</span></p>
+            </td>
+         </tr>
+         <tr class="c14">
+            <td class="c24 c33 c11" colspan="1" rowspan="1">
+               <p class="c1"><span class="c5">Op&#322;ata manipulacyjna</span></p>
+            </td>
+            <td class="c10" colspan="1" rowspan="1">
+               <p class="c1"><span class="c5">[2]</span></p>
+            </td>
+            <td class="c28 c11" colspan="1" rowspan="1">
+               <p class="c1 c12"><span class="c5"></span></p>
+            </td>
+            <td class="c3" colspan="1" rowspan="1">
+               <p class="c1 c12"><span class="c5"></span></p>
+            </td>
+            <td class="c11 c16" colspan="1" rowspan="1">
+               <p class="c1"><span class="c5">{koszt_staly} z&#322;</span></p>
+            </td>
+         </tr>
+         <tr class="c14">
+            <td class="c24 c11" colspan="1" rowspan="1">
+               <p class="c1 c12"><span class="c5"></span></p>
+            </td>
+            <td class="c10" colspan="1" rowspan="1">
+               <p class="c1 c12"><span class="c5"></span></p>
+            </td>
+            <td class="c11 c28" colspan="1" rowspan="1">
+               <p class="c1"><span class="c5">&nbsp;</span></p>
+            </td>
+            <td class="c3" colspan="1" rowspan="1">
+               <p class="c1"><span class="c5">&nbsp;</span></p>
+            </td>
+            <td class="c11 c30" colspan="1" rowspan="1">
+               <p class="c1 c12"><span class="c5"></span></p>
+            </td>
+         </tr>
+         <tr class="c14">
+            <td class="c11 c24" colspan="1" rowspan="1">
+               <p class="c1"><span class="c7">Razem [1]+[2]</span></p>
+            </td>
+            <td class="c10" colspan="1" rowspan="1">
+               <p class="c1"><span class="c7">[3]</span></p>
+            </td>
+            <td class="c28 c11" colspan="1" rowspan="1">
+               <p class="c1 c12"><span class="c7"></span></p>
+            </td>
+            <td class="c3" colspan="1" rowspan="1">
+               <p class="c1 c12"><span class="c7"></span></p>
+            </td>
+            <td class="c30 c33 c11" colspan="1" rowspan="1">
+               <p class="c1"><span class="c25">{koszt_calkowity} z&#322;</span></p>
+            </td>
+         </tr>
+      </table>
+      <p class="c1 c12"><span class="c7"></span></p>
+      <table class="c19">
+         <tr class="c35">
+            <td class="c44" colspan="3" rowspan="1">
+               <p class="c1"><span class="c17">Saldo na dzie&#324; {data2}: [3] &nbsp; &nbsp; &nbsp; </span><span class="c2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></p>
+            </td>
+            <td class="c42" colspan="1" rowspan="1">
+               <p class="c0"><span class="c2">&nbsp;</span></p>
+            </td>
+            <td class="c43" colspan="1" rowspan="1">
+               <p class="c1"><span class="c2">{koszt_calkowity} z&#322;</span></p>
+            </td>
+            <td class="c40" colspan="1" rowspan="1">
+               <p class="c0"><span class="c2">&nbsp;</span></p>
+            </td>
+         </tr>
+      </table>
+      <p class="c0 c12"><span class="c15"></span></p>
+      <hr>
+      <p class="c1 c12"><span class="c15"></span></p>
+      <p class="c1 c12"><span class="c32 c17"></span></p>
+      <p class="c1 c12"><span class="c15"></span></p>
+      <p class="c1"><span class="c15">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+      <p class="c1"><span class="c15">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+      <p class="c1 c12"><span class="c15"></span></p>
+      <p class="c0 c12"><span class="c32 c38"></span></p>
    </body>
 </html>
    '''

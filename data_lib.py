@@ -80,7 +80,7 @@ class Data:
 
         workbook = openpyxl.load_workbook(path, data_only=True)
         sheetNames = workbook.sheetnames
-        sheet = workbook[sheetNames[1]]
+        sheet = workbook["Do wysłania"]
 
         rows = sheet[rangeStart + ":" + rangeEnd]
         for row in rows:
@@ -97,6 +97,9 @@ class Data:
                         user["SPRZEDAWCA"] = settings['mail_settings']['SPRZEDAWCA']
                         user["RACHUNEK_BANKOWY"] = settings['mail_settings']['RACHUNEK_BANKOWY']
 
+            if "STAWKA_KWH" in user.keys() and "ZUZYCIE_KWH" in user.keys():
+                user["RACHUNEK_BANKOWY"] = settings['mail_settings']['RACHUNEK_BANKOWY']
+
             users[user["LOKATOR"]] = user
 
         return users
@@ -111,13 +114,18 @@ class Data:
         for user in users.keys():
             current_date = datetime.datetime.now().strftime("%d.%m.%Y") + 'r.'
             # type od template to chose to generate
-            if "SPRZEDAWCA" in users[user].keys() and "RACHUNEK_BANKOWY" in users[user].keys():
+            if "STAWKA_KWH" in users[user].keys() and "ZUZYCIE_KWH" in users[user].keys():
+                label = "PRAD_"
+                raw_html = base_doc.get_form_user_electricy(users[user], okres1, okres2, current_date)
+            elif "SPRZEDAWCA" in users[user].keys() and "RACHUNEK_BANKOWY" in users[user].keys():
+                label = "WODA_FORMAL_"
                 raw_html = base_doc.get_form_user_formal(users[user], okres1, okres2, current_date)
             else:
+                label = "WODA_"
                 raw_html = base_doc.get_form_for_user(users[user], okres1, okres2)
 
             try:
-                user_path = os.path.join(os.getcwd(), self.pdfs_path, str(user) + ".pdf")
+                user_path = os.path.join(os.getcwd(), self.pdfs_path, label + str(user) + ".pdf")
                 self.html_to_pdf(raw_html, user_path, user)
                 print(f"Successfully converted html to pdf | {user} | {users[user]['MAIL']}")
 
