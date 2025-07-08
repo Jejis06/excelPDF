@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import data_lib
 import os
 import sys
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 
 
@@ -141,8 +142,17 @@ class Ui_Form2(object):
             self.OUT.appendPlainText("[YOU DIDNT GENERATE PDFS]")
             return
         self.OUT.appendPlainText("[SENDING PDFS.....]")
+        # For legacy GUI, check if Auth field contains a file path or use default credentials.json
+        credentials_path = self.Auth.text()
+        if not credentials_path or not os.path.exists(credentials_path):
+            credentials_path = "credentials.json"
+            if not os.path.exists(credentials_path):
+                self.OUT.appendPlainText("❌ Error: No credentials.json file found. Please set up OAuth 2.0 authentication.")
+                self.OUT.appendPlainText("💡 Tip: Create credentials.json file or migrate to the modern interface for easier setup.")
+                return
+        
         with data_lib.Capturing() as output:
-            data_lib.send_pdfs(self.files, self.RootMail.text(), self.Auth.text(), self.Tytul.text(),
+            data_lib.send_pdfs(self.files, self.RootMail.text(), credentials_path, self.Tytul.text(),
                                self.Tresc.toPlainText())
 
         for out in output:
@@ -307,8 +317,9 @@ class Ui_Form2(object):
         self.label_8.setAlignment(QtCore.Qt.AlignCenter)
         self.label_8.setObjectName("label_8")
         self.verticalLayout.addWidget(self.label_8)
-        self.Tresc = QtWidgets.QPlainTextEdit(self.gridLayoutWidget)
+        self.Tresc = QtWidgets.QTextEdit(self.gridLayoutWidget)
         self.Tresc.setObjectName("Tresc")
+        self.Tresc.setAcceptRichText(True)
         self.verticalLayout.addWidget(self.Tresc)
 
         # Sprzedawca ----- ADD SAVING DATA
@@ -431,8 +442,32 @@ class Ui_Form2(object):
         self.KoniecOkr.setObjectName("KoniecOkr")
         self.horizontalLayout_19.addWidget(self.KoniecOkr)
 
+        self.sectionTabs = Form.findChild(QtWidgets.QTabWidget, "sectionTabs")
+        self.dataTable = Form.findChild(QtWidgets.QTableView, "dataTable")
+        if self.sectionTabs and self.dataTable:
+            self.sectionTabs.currentChanged.connect(self.on_tab_changed)
+
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+
+    def on_tab_changed(self, idx):
+        if self.sectionTabs.tabText(idx) == "Data Viewer":
+            self.populate_data_table()
+
+    def populate_data_table(self):
+        settings = self.get_settings()
+        dane = data_lib.Data(settings)
+        users = dane.users
+        if not users:
+            return
+        headers = list(next(iter(users.values())).keys())
+        model = QStandardItemModel()
+        model.setHorizontalHeaderLabels(headers)
+        for user, data in users.items():
+            row = [QStandardItem(str(data.get(h, ""))) for h in headers]
+            model.appendRow(row)
+        self.dataTable.setModel(model)
+        self.dataTable.resizeColumnsToContents()
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -457,4 +492,26 @@ class Ui_Form2(object):
         self.SendPdf.setText(_translate("Form", "Send PDFs"))
         self.NazwaPoczatek.setText(_translate("Form", "Poczatek okresu rozl."))
         self.NazwaKoniec.setText(_translate("Form", "Koniec okresu rozl."))
+
+    def handle_toolbar_action(self, action, textedit):
+        if action.text() == "Bold":
+            fmt = textedit.currentCharFormat()
+            fmt.setFontWeight(QtGui.QFont.Bold if fmt.fontWeight() != QtGui.QFont.Bold else QtGui.QFont.Normal)
+            textedit.setCurrentCharFormat(fmt)
+        elif action.text() == "Italic":
+            fmt = textedit.currentCharFormat()
+            fmt.setFontItalic(not fmt.fontItalic())
+            textedit.setCurrentCharFormat(fmt)
+        elif action.text() == "Underline":
+            fmt = textedit.currentCharFormat()
+            fmt.setFontUnderline(not fmt.fontUnderline())
+            textedit.setCurrentCharFormat(fmt)
+        elif action.text() == "List":
+            cursor = textedit.textCursor()
+            cursor.insertList(QtGui.QTextListFormat.ListDisc)
+        elif action.text() == "Link":
+            cursor = textedit.textCursor()
+            url, ok = QtWidgets.QInputDialog.getText(textedit, "Insert Link", "URL:")
+            if ok and url:
+                cursor.insertHtml(f'<a href="{url}">{url}</a>')
 

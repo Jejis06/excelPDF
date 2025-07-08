@@ -40,10 +40,10 @@ class Capturing(list):
         sys.stdout = self._stdout
 
 
-def send_pdfs(files, mail, auth, subject, message):
+def send_pdfs(files, mail, credentials_file_path, subject, message):
     for file in files:
         try:
-            mail_module.send_email_pdf_figs(file["pdf_path"], subject, message, file['mail'], mail, auth,
+            mail_module.send_email_pdf_figs(file["pdf_path"], subject, message, file['mail'], mail, credentials_file_path,
                                             f"ROZL_{file['user']}.pdf")
             print(f"| Succesfully sent email to {file['mail']} / {file['user']} |")
         except Exception as e:

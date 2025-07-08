@@ -1,0 +1,19 @@
+# Core Application Dependencies
+PyQt5>=5.15.0
+openpyxl>=3.0.0
+requests>=2.25.0
+
+# PDF Generation
+pdfkit>=1.0.0
+
+# Google APIs for Gmail integration
+google-auth>=2.0.0
+google-auth-oauthlib>=1.0.0
+google-auth-httplib2>=0.1.0
+google-api-python-client>=2.0.0
+
+# Build Dependencies (for creating executables)
+PyInstaller>=5.0.0
+
+# Optional: Icon conversion (for better icon support)
+Pillow>=8.0.0
