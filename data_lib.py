@@ -62,7 +62,10 @@ class Data:
         return
 
     def html_to_pdf(self, html_content: str, output_path: os.path, user):
-        pdfkit.from_string(html_content, output_path)
+        if os.name == "nt":
+           config =  pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
+           pdfkit.from_string(html_content, output_path, configuration=config)
+        else: pdfkit.from_string(html_content, output_path)
 
     def get_col(self, cell: str, row: any):
         return row[ord(cell) - ord('A')]
