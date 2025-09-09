@@ -735,8 +735,15 @@ def get_form_user_electricy(user, data1, data2, aktualna_data):
     print(user)
 
     numer_mieszkania = user['LOKAL_URZYTKOWY']
+
     zuzycie_kwh= round(user["ZUZYCIE_KWH"], 2)
     stawka_kwh = round(user["STAWKA_KWH"], 2)
+
+    stawka_kwh_alt = round(user["STAWKA_KWH"], 4)
+
+    # profit calculator
+    if round(stawka_kwh * zuzycie_kwh, 2) < round(stawka_kwh_alt * zuzycie_kwh, 2):
+        stawka_kwh = stawka_kwh_alt
 
     koszt_staly = round(5.001, 2)
     koszt_czesciowy = round(zuzycie_kwh * stawka_kwh, 2)

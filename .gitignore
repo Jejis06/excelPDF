@@ -4,3 +4,7 @@ venv
 *.xlsx
 *.json
 *.pickle
+builds
+build
+__pycache__
+dist
