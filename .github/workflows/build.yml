@@ -27,7 +27,7 @@ jobs:
 
       - name: Build EXE with Icon
         run: |
-          pyinstaller --noconfirm --onefile --icon=icon.ico --name=Rozliczenia app.py
+          pyinstaller --noconfirm --onefile --windowed --icon=icon.ico --name=Rozliczenia app.py
 
       - name: Upload EXE to Actions (for debugging or manual download)
         uses: actions/upload-artifact@v4
