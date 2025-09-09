@@ -277,8 +277,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Contact
 - **Developer:** Utility Bills Team
-- **Version:** 1.0.0
-- **Last Updated:** 2024
+- **Version:** 1.0.4
+- **Last Updated:** 2025
 
 ---
 
